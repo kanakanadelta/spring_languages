@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.wos.languages.models.Language;
@@ -52,13 +54,36 @@ public class LanguagesController {
 	//4. SHOW - Show info about language
 	@GetMapping("/{id}")
 	public String show(@PathVariable("id") Long id, Model model) {
-		System.out.println("Hello from SHOW method");
 		Language language = langService.findLanguage(id);
 		model.addAttribute("language", language);
 		return "show.jsp";
 	}
 	
+	//5. EDIT - Show edit form of the language
+	@GetMapping("/{id}/edit")
+	public String edit(@PathVariable("id")Long id, Model model) {
+		Language language = langService.findLanguage(id);
+		model.addAttribute("language", language);
+		return "edit.jsp";
+	}
 	
+	//6. UPDATE - Make changes to the item in the DB, then redirect
+	@PutMapping("/{id}")
+	public String update(@ModelAttribute("language")Language language, BindingResult result) {
+		if(result.hasErrors()) {
+			return "edit.jsp";
+		} else {
+			langService.createOrUpdateLanguage(language);
+			return "redirect:/languages";
+		}
+	}
+	
+	//7. DESTROY
+	@DeleteMapping("/{id}")
+	public String destroy(@PathVariable("id")Long id) {
+		langService.deleteLanguage(id);
+		return "redirect:/languages";
+	}
 	
 	// END CONTROLLER
 }
