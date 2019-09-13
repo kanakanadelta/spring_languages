@@ -31,7 +31,7 @@
 				<c:forEach items="${languages}" var="language">
 					<tr>
 						<td>
-							<a href="/lanugages/${language.id}">
+							<a href="/languages/${language.id}">
 								<c:out value="${language.name}"/>
 							</a>
 						</td>
@@ -39,7 +39,7 @@
 							<c:out value="${language.name}"/>
 						</td>
 						<td>
-							<c:out value="${language.name}"/>
+							<c:out value="${language.currentVersion}"/>
 						</td>
 						<td>
 							<form action="/languages/${language.id}" method="post">
