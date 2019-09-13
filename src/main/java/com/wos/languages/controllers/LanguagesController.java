@@ -2,6 +2,8 @@ package com.wos.languages.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,7 +44,7 @@ public class LanguagesController {
 	
 	//3. CREATE - Add new language to the database
 	@PostMapping("")
-	public String create(@ModelAttribute("language") Language language, BindingResult result) {
+	public String create(@Valid @ModelAttribute("language") Language language, BindingResult result) {
 		if(result.hasErrors()) {
 			return "index.jsp";
 		} else {
@@ -69,7 +71,7 @@ public class LanguagesController {
 	
 	//6. UPDATE - Make changes to the item in the DB, then redirect
 	@PutMapping("/{id}")
-	public String update(@ModelAttribute("language")Language language, BindingResult result) {
+	public String update(@Valid @ModelAttribute("language")Language language, BindingResult result) {
 		if(result.hasErrors()) {
 			return "edit.jsp";
 		} else {

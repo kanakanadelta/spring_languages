@@ -7,11 +7,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<style>
-		* {
-			
-		}
-	</style>
 <meta charset="UTF-8">
 <title>Languages</title>
 </head>
